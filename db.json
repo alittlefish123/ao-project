@@ -1,0 +1,34 @@
+{
+  "tasks": [
+    {
+      "id": 1,
+      "name": "绝育动物",
+      "description": "任务艰巨这只猫很抗拒",
+      "state": "待完成",
+      "data": "",
+      "uid": "张三",
+      "phone": "",
+      "action": "删除/更换人员"
+    },
+    {
+      "id": 2,
+      "name": "动物抓捕",
+      "description": "so eassy",
+      "state": "已完成",
+      "data": "",
+      "uid": "李四",
+      "phone": "",
+      "action": "删除/更换人员"
+    },
+    {
+      "id": 3,
+      "name": "动物派送",
+      "description": "今天下雨了明天再去",
+      "state": "待完成",
+      "data": "",
+      "uid": "王五",
+      "phone": "",
+      "action": "删除/更换人员"
+    }
+  ]
+}
