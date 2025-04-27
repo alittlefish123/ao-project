@@ -21,7 +21,7 @@ mybatis-plus:
 
 files:
   upload:
-    path: D:\place\idesProjects\code2\springboot\files
+    path: D:\place\idesProjects\day01\ao-project\springboot\files
 #    path: D:\毕设\Springboot+Vue宠物领养系统\springboot/files/       windows 使用此路径，对应项目的路径
 
 
