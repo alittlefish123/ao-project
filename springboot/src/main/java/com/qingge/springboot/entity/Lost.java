@@ -3,6 +3,7 @@ package com.qingge.springboot.entity;
 import java.io.Serializable;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -36,6 +37,8 @@ public class Lost implements Serializable {
     @ApiModelProperty("性别")
     private String sex;
 
+    private Integer personId;
+    @TableField(exist = false)
     @ApiModelProperty("联系人")
     private String person;
 

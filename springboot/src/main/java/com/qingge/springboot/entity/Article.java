@@ -1,6 +1,7 @@
 package com.qingge.springboot.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
@@ -31,10 +32,12 @@ public class Article implements Serializable {
     private String content;
 
     private Integer userId;
+    @TableField(exist = false)
+    private String username;
 
     private String time;
 
-    private String user;
+
 
 
 }

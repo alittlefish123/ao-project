@@ -32,7 +32,9 @@ public class Comment implements Serializable {
     @ApiModelProperty("回复内容")
     private String content;
 
+    private Integer userId;
     @ApiModelProperty("回复人")
+    @TableField(exist = false)
     private String user;
 
     @ApiModelProperty("回复时间")
@@ -43,6 +45,8 @@ public class Comment implements Serializable {
 
     @ApiModelProperty("文章id")
     private Integer articleId;
+    @TableField(exist = false)
+    private  String article;
     private Integer type;
     @TableField(exist = false)
     private String avatar;

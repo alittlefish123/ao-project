@@ -1,6 +1,7 @@
 package com.qingge.springboot.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
@@ -38,7 +39,9 @@ public class Salvation implements Serializable {
     @ApiModelProperty("发现时间")
     private String time;
 
-    @ApiModelProperty("联系人")
+    @ApiModelProperty("联系人id")
+    private Integer personId;
+    @TableField(exist = false)
     private String person;
 
     @ApiModelProperty("联系方式")

@@ -1,5 +1,6 @@
 package com.qingge.springboot.mapper;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.qingge.springboot.controller.dto.UserPasswordDTO;
 import com.qingge.springboot.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -33,5 +34,6 @@ public interface UserMapper extends BaseMapper<User> {
             "ORDER BY\n" +
             "    time1;")
     List<YearCount> getYearCount();
+
 
 }

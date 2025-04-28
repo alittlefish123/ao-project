@@ -15,6 +15,7 @@ import com.qingge.springboot.common.Result;
 import com.qingge.springboot.config.interceptor.AuthAccess;
 import com.qingge.springboot.entity.User;
 import com.qingge.springboot.exception.ServiceException;
+import com.qingge.springboot.mapper.RoleMapper;
 import com.qingge.springboot.service.IUserService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
@@ -44,6 +45,9 @@ public class UserController {
 
     @Resource
     private IUserService userService;
+
+    @Resource
+    private RoleMapper roleMapper;
 
     @PostMapping("/login")
     public Result login(@RequestBody UserDTO userDTO) {
@@ -139,7 +143,9 @@ public class UserController {
     public Result findByUsername(@PathVariable String username) {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username", username);
-        return Result.success(userService.getOne(queryWrapper));
+        User one = userService.getOne(queryWrapper);
+        userService.setUserRole(one);
+        return Result.success(one);
     }
 
     @GetMapping("/page")
@@ -148,7 +154,7 @@ public class UserController {
                            @RequestParam(defaultValue = "") String username,
                            @RequestParam(defaultValue = "") String email,
                            @RequestParam(defaultValue = "") String address,
-                           @RequestParam(defaultValue = "") String role
+                           @RequestParam(defaultValue = "") Integer roleId
     ) {
 
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
@@ -162,11 +168,15 @@ public class UserController {
         if (!"".equals(address)) {
             queryWrapper.like("address", address);
         }
-        if (!"".equals(role)) {
-            queryWrapper.eq("role", role);
+        if (!"".equals(roleId)) {
+            queryWrapper.eq("role_id", roleId);
         }
-
-        return Result.success(userService.page(new Page<>(pageNum, pageSize), queryWrapper));
+        Page<User> page = userService.page(new Page<>(pageNum, pageSize), queryWrapper);
+        List<User> records = page.getRecords();
+        records.stream().forEach(i->{
+            i.setRole(roleMapper.selectById(i.getRoleId()).getFlag());
+        });
+        return Result.success(page);
     }
 
     /**

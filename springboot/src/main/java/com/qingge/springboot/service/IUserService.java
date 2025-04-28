@@ -27,4 +27,5 @@ public interface IUserService extends IService<User> {
 
     List<YearCount> getYearCount();
 
+    void setUserRole(User user);
 }

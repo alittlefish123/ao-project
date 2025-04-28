@@ -1,12 +1,14 @@
 package com.qingge.springboot.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.qingge.springboot.common.Result;
 import com.qingge.springboot.entity.Notice;
 import com.qingge.springboot.entity.Role;
 import com.qingge.springboot.entity.User;
+import com.qingge.springboot.mapper.RoleMapper;
 import com.qingge.springboot.mapper.UserMapper;
 import com.qingge.springboot.service.IRoleService;
 import org.apache.ibatis.annotations.Param;
@@ -33,6 +35,9 @@ public class RoleController {
     @Resource
     private UserMapper userMapper;
 
+    @Resource
+    private RoleMapper roleMapper;
+
     // 新增或者更新
     @PostMapping
     public Result save(@RequestBody Role role) {
@@ -44,7 +49,10 @@ public class RoleController {
     @RequestMapping("/update")
     public Result getRole(@RequestParam Integer userId) {
 
-        return Result.success(userMapper.selectById(userId));
+        User user = userMapper.selectById(userId);
+        Role role = roleMapper.selectById(user.getRoleId());
+        user.setRole(role.getFlag());
+        return Result.success(user);
     }
 
     @DeleteMapping("/{id}")
@@ -106,8 +114,8 @@ public class RoleController {
         User user = new User();
         user.setId(userId);
         User user1 = userMapper.selectById(userId);
-        if(!"ROLE_VOLUNTEER".equals(user1.getRole())){
-            user.setRole("ROLE_TEMP");
+        if(user1.getRoleId()==2){
+            user.setRoleId(4);
         }
         return Result.success( userMapper.updateById(user));
     }
@@ -117,12 +125,12 @@ public class RoleController {
     public Result applyManage(@RequestParam(defaultValue = "") String name,
                            @RequestParam Integer pageNum,
                            @RequestParam Integer pageSize) {
-        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        queryWrapper.orderByDesc("id");
+        LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<User>();
+        queryWrapper.orderByDesc(User::getId);
 
-        queryWrapper.eq("role","ROLE_TEMP");
+        queryWrapper.eq(User::getRoleId,4);
         if (!name.isEmpty()) {
-            queryWrapper.like("username", name);  // 如果 name 有值，按用户名模糊查询
+            queryWrapper.like(User::getUsername, name);  // 如果 name 有值，按用户名模糊查询
         }
         return Result.success(userMapper.selectList(queryWrapper));
     }
@@ -132,9 +140,9 @@ public class RoleController {
         User user = new User();
         user.setId(userId);
         if("success".equals(message)){
-            user.setRole("ROLE_VOLUNTEER");
+            user.setRoleId(3);
         }else if("error".equals(message)){
-            user.setRole("ROLE_USER");
+            user.setRoleId(2);
         }
         return Result.success( userMapper.updateById(user));
     }

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.ServletOutputStream;
 import java.net.URLEncoder;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.qingge.springboot.mapper.UserMapper;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.io.InputStream;
@@ -37,6 +38,9 @@ public class LostController {
 
     @Resource
     private ILostService lostService;
+
+    @Resource
+    private UserMapper userMapper;
 
     private final String now = DateUtil.now();
 
@@ -78,7 +82,12 @@ public class LostController {
         if (!"".equals(name)) {
             queryWrapper.like("nickname", name);
         }
-        return Result.success(lostService.page(new Page<>(pageNum, pageSize), queryWrapper));
+        Page<Lost> page = lostService.page(new Page<>(pageNum, pageSize), queryWrapper);
+        List<Lost> records = page.getRecords();
+        records.stream().forEach(i->{
+            i.setPerson(userMapper.selectById(i.getPersonId()).getUsername());
+        });
+        return Result.success(page);
     }
 
     /**

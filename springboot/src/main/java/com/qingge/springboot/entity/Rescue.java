@@ -1,6 +1,7 @@
 package com.qingge.springboot.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
@@ -36,7 +37,10 @@ public class Rescue implements Serializable {
     @ApiModelProperty("照片")
     private String img;
 
-    @ApiModelProperty("联系人")
+    @ApiModelProperty("联系人id")
+    private Integer personId;
+
+    @TableField(exist = false)
     private String person;
 
     @ApiModelProperty("联系方式")

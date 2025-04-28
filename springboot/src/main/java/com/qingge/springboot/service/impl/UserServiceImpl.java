@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.qingge.springboot.controller.dto.UserDTO;
 import com.qingge.springboot.controller.dto.UserPasswordDTO;
+import com.qingge.springboot.entity.Role;
 import com.qingge.springboot.entity.YearCount;
 import com.qingge.springboot.exception.ServiceException;
 import com.qingge.springboot.common.Constants;
@@ -39,6 +40,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     public List<YearCount> getYearCount() {
 
         return userMapper.getYearCount();
+    }
+
+    @Override
+    public void setUserRole(User user) {
+        Role role = roleMapper.selectById(user.getRoleId());
+        user.setRole(role.getFlag());
     }
 
     private static final Log LOG = Log.get();
@@ -104,6 +111,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         User one;
         try {
             one = getOne(queryWrapper); // 从数据库查询用户信息
+            Role role = roleMapper.selectById(one.getRoleId());
+            one.setRole(role.getFlag());
         } catch (Exception e) {
             LOG.error(e);
             throw new ServiceException(Constants.CODE_500, "系统错误");

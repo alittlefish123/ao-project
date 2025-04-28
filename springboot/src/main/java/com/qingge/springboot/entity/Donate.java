@@ -1,6 +1,7 @@
 package com.qingge.springboot.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -31,8 +32,11 @@ public class Donate implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
+
+    @TableField(exist = false)
+    private Integer name;
     @ApiModelProperty("捐款人")
-    private String name;
+    private String userId;
 
     @ApiModelProperty("捐赠物资")
     private String goods;

@@ -83,7 +83,7 @@
         </el-form-item>
         <el-form-item label="角色">
           <el-select clearable v-model="form.role" placeholder="请选择角色" style="width: 100%">
-            <el-option v-for="item in roles" :key="item.name" :label="item.name" :value="item.flag"></el-option>
+            <el-option v-for="item in roles" :key="item.name" :label="item.name" :value="item.id"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="姓名">
@@ -121,15 +121,19 @@ export default {
   data() {
     return {
       options: [{
-        value: 'ROLE_VOLUNTEER',
+        value1: 'ROLE_VOLUNTEER',
+        value: 3,
         label: '志愿者'
       }, {
-        value: 'ROLE_USER',
+        value1: 'ROLE_USER',
+        value: 2,
         label: '用户'
       }, {
-        value: 'ROLE_ADMIN',
+        value1: 'ROLE_ADMIN',
+        value: 1,
         label: '管理员'
       }, {
+        value1: '',
         value: '',
         label: '所有用户'
       }],
@@ -159,7 +163,7 @@ export default {
           username: this.username,
           email: this.email,
           address: this.address,
-          role:this.selectRole,
+          roleId:this.selectRole,
         }
       }).then(res => {
 

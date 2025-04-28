@@ -46,7 +46,7 @@ public class ArticleController {
         if (article.getId() == null) {
             article.setTime(DateUtil.now());
             article.setUserId(TokenUtils.getCurrentUser().getId());
-            article.setUser(TokenUtils.getCurrentUser().getNickname());
+            article.setUsername(TokenUtils.getCurrentUser().getNickname());
         }
         articleService.saveOrUpdate(article);
         return Result.success();

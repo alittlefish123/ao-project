@@ -1,6 +1,7 @@
 package com.qingge.springboot.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
@@ -8,11 +9,14 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+import com.qingge.springboot.mapper.RoleMapper;
+import com.qingge.springboot.mapper.UserMapper;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * <p>
@@ -28,6 +32,8 @@ import lombok.ToString;
 @ApiModel(value = "User对象", description = "")
 @ToString
 public class User implements Serializable {
+
+
 
     private static final long serialVersionUID = 1L;
 
@@ -59,9 +65,12 @@ public class User implements Serializable {
     @ApiModelProperty("头像")
     private String avatarUrl;
 
-    @ApiModelProperty("角色")
+    @ApiModelProperty("角色id")
+    private Integer roleId;
+    @TableField(exist = false)
     private String role;
     private String sex;
     private String birth;
+
 
 }
