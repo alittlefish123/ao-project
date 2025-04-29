@@ -46,7 +46,8 @@ export default {
       form:{
         money:0,
         name:localStorage.getItem('user')?JSON.parse(localStorage.getItem('user')).nickname:'',
-        time:new Date().toISOString().split('T')[0] // 直接获取今天的ISO格式日期
+        time:new Date().toISOString().split('T')[0], // 直接获取今天的ISO格式日期
+        userId:localStorage.getItem('user')?JSON.parse(localStorage.getItem('user')).id:'',
       },
 
     }

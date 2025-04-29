@@ -80,7 +80,15 @@
           <el-radio v-model="form.sex" label="母">母</el-radio>
         </el-form-item>
         <el-form-item label="联系人">
-          <el-input v-model="form.person" autocomplete="off"></el-input>
+<!--          <el-input v-model="form.person" autocomplete="off"></el-input>-->
+          <el-autocomplete
+              class="inline-input"
+              v-model="state2"
+              :fetch-suggestions="querySearch"
+              placeholder="请输入内容"
+              :trigger-on-focus="false"
+              @select="handleSelect"
+          ></el-autocomplete>
         </el-form-item>
         <el-form-item label="联系方式">
           <el-input v-model="form.phone" autocomplete="off"></el-input>
@@ -104,10 +112,17 @@
 </template>
 
 <script>
+import {createLogger} from "vuex";
+
 export default {
   name: "Lost",
   data() {
     return {
+      // 根据数据提示用户名
+      state2: '',
+
+
+
       tableData: [],
       total: 0,
       pageNum: 1,
@@ -123,7 +138,26 @@ export default {
     this.load()
   },
   methods: {
+    //根据数据提示用户名
+    querySearch(queryString, cb) {
+      var restaurants = this.restaurants;
+      var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
+      // 调用 callback 返回建议列表的数据
+      cb(results);
+    },
+    createFilter(queryString) {
+      return (restaurant) => {
+        return (restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+      };},
+    handleSelect(item) {
+      console.log(item);
+      this.form.personId=item.id;
+    },
+
+
+
     load() {
+      //获取丢失动物分页
       this.request.get("/lost/page", {
         params: {
           pageNum: this.pageNum,
@@ -133,7 +167,16 @@ export default {
       }).then(res => {
         this.tableData = res.data.records
         this.total = res.data.total
+      }),
+      //获取用户列表
+      this.request.get("/user").then(res=>{
+        if(res.code==='200'){
+          this.restaurants =res.data.map(i=>({value:i.username,id:i.id}))
+          console.log('=======================')
+          console.log(this.restaurants)
+        }
       })
+
     },
     save() {
       this.request.post("/lost", this.form).then(res => {

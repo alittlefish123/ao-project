@@ -34,9 +34,9 @@ public class Donate implements Serializable {
 
 
     @TableField(exist = false)
-    private Integer name;
+    private String name;
     @ApiModelProperty("捐款人")
-    private String userId;
+    private Integer userId;
 
     @ApiModelProperty("捐赠物资")
     private String goods;

@@ -9,6 +9,7 @@ import javax.servlet.ServletOutputStream;
 import java.net.URLEncoder;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.qingge.springboot.config.interceptor.AuthAccess;
+import com.qingge.springboot.mapper.UserMapper;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.io.InputStream;
@@ -38,6 +39,9 @@ public class SalvationController {
 
     @Resource
     private ISalvationService salvationService;
+
+    @Resource
+    private UserMapper userMapper;
 
     private final String now = DateUtil.now();
 
@@ -80,7 +84,12 @@ public class SalvationController {
         if (!"".equals(name)) {
             queryWrapper.like("name", name);
         }
-        return Result.success(salvationService.page(new Page<>(pageNum, pageSize), queryWrapper));
+        Page<Salvation> page = salvationService.page(new Page<>(pageNum, pageSize), queryWrapper);
+        List<Salvation> records = page.getRecords();
+        records.stream().forEach(i->{
+            i.setPerson(userMapper.selectById(i.getPersonId()).getUsername());
+        });
+        return Result.success(page);
     }
 
     /**

@@ -81,7 +81,7 @@ public class CommentController {
         List<Comment> list = commentService.list(queryWrapper);
         List<Comment> res = new ArrayList<>();
         for (Comment comment : list) {
-            User one = userService.getOne(Wrappers.<User>lambdaQuery().eq(User::getNickname, comment.getUser()));
+            User one = userService.getOne(Wrappers.<User>lambdaQuery().eq(User::getId, comment.getUserId()));
             if (one != null) {
                 comment.setAvatar(one.getAvatarUrl());  // 设置头像
             }

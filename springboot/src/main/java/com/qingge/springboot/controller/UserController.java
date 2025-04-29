@@ -168,7 +168,7 @@ public class UserController {
         if (!"".equals(address)) {
             queryWrapper.like("address", address);
         }
-        if (!"".equals(roleId)) {
+        if (!"".equals(roleId)&&roleId!=null) {
             queryWrapper.eq("role_id", roleId);
         }
         Page<User> page = userService.page(new Page<>(pageNum, pageSize), queryWrapper);

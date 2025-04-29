@@ -154,14 +154,14 @@ public class TaskController {
     }
 
     @PostMapping("/taskNames")
-    public Result getTaskNames(@RequestBody List<String> uids) {
+    public Result getTaskNames(@RequestBody List<String> tids) {
 
-        if (uids == null || uids.isEmpty()) {
+        if (tids == null || tids.isEmpty()) {
             return Result.error("400","任务ID列表不能为空");
         }
         // 使用in查询批量获取用户
         LambdaQueryWrapper<TaskName> wrapper = new LambdaQueryWrapper<>();
-        wrapper.in(TaskName::getId, uids);
+        wrapper.in(TaskName::getId, tids);
         List<TaskName> taskNames = taskNameMapper.selectList(wrapper);
         return Result.success(taskNames);
     }

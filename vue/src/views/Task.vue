@@ -109,7 +109,7 @@
       <el-table-column prop="id" label="ID" width="80"></el-table-column>
       <el-table-column prop="name" label="任务名">
         <template #default="scope">
-          {{ taskNameMap[scope.row.name]}}
+          {{ taskNameMap[scope.row.nameId]}}
         </template>
       </el-table-column>
       <el-table-column prop="description" label="个人描述"></el-table-column>
@@ -238,8 +238,8 @@ export default {
       }, {});
     },
     async loadAllTaskNames() {
-      const names = this.tableData.map(item => item.name);
-      const response = await this.request.post("/task/taskNames", names );
+      const tids = this.tableData.map(item => item.nameId);
+      const response = await this.request.post("/task/taskNames", tids );
       this.taskNameMap = response.data.reduce((map, task) => {
         map[task.id] = task.name;
         return map;
