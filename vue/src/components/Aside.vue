@@ -1,5 +1,5 @@
 <template>
-  <el-menu :default-openeds="opens" style="min-height: 100%; overflow-x: hidden; padding-bottom: 20px"
+  <el-menu :default-openeds="opens" style="min-height: 100%; overflow-x: hidden; padding-bottom: 20px;"
            background-color="rgb(48, 65, 86)"
            text-color="#fff"
            active-text-color="#ffd04b"
@@ -9,7 +9,7 @@
   >
     <div style="height: 60px; line-height: 60px; text-align: center">
       <img src="../assets/宠物logo.png" alt="" style="width: 30px; position: relative; top: 7px;margin-right: 5px">
-      <b style="color: white; margin-left: 5px" v-show="logoTextShow">宠物管理系统</b>
+      <b style="color: white; margin-left: 0px" v-show="logoTextShow">流浪动物救助中心系统</b>
     </div>
     <div v-for="item in menus" :key="item.id">
       <div v-if="item.path">

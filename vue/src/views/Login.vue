@@ -4,7 +4,7 @@
     <div style="width: 30%; display: flex;background-color: transparent;">
 
       <div class="loginBox"  >
-        <div  style="text-align: center; font-size: 30px; margin-bottom: 50px; font-size: 30px;" >流浪动物救助系统</div>
+        <div  style="text-align: center; font-size: 30px; margin-bottom: 50px; font-size: 30px;" >流浪动物救助中心系统</div>
           <el-form :model="user" :rules="rules" ref="userForm" style="">
             <el-form-item prop="username">
               <el-input size="medium" prefix-icon="el-icon-user" v-model="user.username" placeholder="请输入账号"></el-input>

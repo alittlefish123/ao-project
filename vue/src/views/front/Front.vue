@@ -2,11 +2,11 @@
   <div style="background: #F0F8FF">
 <!--    头部-->
     <div style="display: flex; background-color: #fff; height: 60px; line-height: 60px; border-bottom: 1px solid #eee">
-      <div style="width: 260px; display: flex; padding-left: 30px">
+      <div style="width: 300px; display: flex; padding-left: 30px">
         <div style="width: 60px">
           <img src="../../assets/宠物招牌.png" alt="" style="width: 40px; position: relative; top: 10px; right: 0">
         </div>
-        <div style="flex: 1; font-size: 20px; color: #1E90FF; font-weight: bold;">流浪动物救助系统</div>
+        <div style="flex: 1; font-size: 20px; color: #1E90FF; font-weight: bold;">流浪动物救助中心系统</div>
       </div>
       <div style="flex: 1">
 
