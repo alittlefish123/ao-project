@@ -10,7 +10,10 @@ import java.net.URLEncoder;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.qingge.springboot.entity.Article;
 import com.qingge.springboot.entity.User;
+import com.qingge.springboot.mapper.ArticleMapper;
+import com.qingge.springboot.mapper.UserMapper;
 import com.qingge.springboot.service.IUserService;
 import com.qingge.springboot.utils.TokenUtils;
 import org.springframework.web.bind.annotation.*;
@@ -45,6 +48,12 @@ public class CommentController {
     private ICommentService commentService;
 
     @Resource
+    private ArticleMapper articleMapper;
+
+    @Resource
+    private UserMapper userMapper;
+
+    @Resource
     private IUserService userService;
 
     // 新增或者更新
@@ -76,14 +85,19 @@ public class CommentController {
     @GetMapping("/article/{type}/{articleId}")
     public Result findAll(@PathVariable Integer type, @PathVariable Integer articleId) {
         QueryWrapper<Comment> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("article_id", articleId);
+        if("0".equals(articleId)){
+            queryWrapper.eq("article_id", articleId);
+        }
         queryWrapper.eq("type", type);
         List<Comment> list = commentService.list(queryWrapper);
         List<Comment> res = new ArrayList<>();
         for (Comment comment : list) {
+            Article article = articleMapper.selectById(comment.getArticleId());
+            comment.setArticle(article.getName());
             User one = userService.getOne(Wrappers.<User>lambdaQuery().eq(User::getId, comment.getUserId()));
             if (one != null) {
                 comment.setAvatar(one.getAvatarUrl());  // 设置头像
+                comment.setUser(userMapper.selectById(one.getId()).getUsername());
             }
             if (comment.getPid() == null) {
                 res.add(comment);
@@ -108,7 +122,17 @@ public class CommentController {
         if (!"".equals(name)) {
             queryWrapper.like("name", name);
         }
-        return Result.success(commentService.page(new Page<>(pageNum, pageSize), queryWrapper));
+        Page<Comment> page = commentService.page(new Page<>(pageNum, pageSize), queryWrapper);
+        List<Comment> records = page.getRecords();
+        User user=new User();
+        records.stream().forEach(i->{
+            Integer userId = i.getUserId();
+            if(userId!=null && !userId.equals("")){
+                user.setId(userId);
+                i.setUser(userMapper.selectById(i.getUserId()).getUsername());
+            }
+        });
+        return Result.success(page);
     }
 
     /**

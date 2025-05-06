@@ -40,7 +40,7 @@
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column prop="id" label="ID" width="80"></el-table-column>
       <el-table-column prop="username" label="用户名" width="140"></el-table-column>
-      <el-table-column prop="role" label="角色"></el-table-column>
+      <el-table-column prop="roleName" label="角色"></el-table-column>
       <el-table-column prop="nickname" label="姓名" width="120"></el-table-column>
       <el-table-column prop="sex" label="性别" width="120"></el-table-column>
       <el-table-column prop="birth" label="生日" width="120"></el-table-column>

@@ -13,6 +13,7 @@ import com.qingge.springboot.controller.dto.UserPasswordDTO;
 import com.qingge.springboot.common.Constants;
 import com.qingge.springboot.common.Result;
 import com.qingge.springboot.config.interceptor.AuthAccess;
+import com.qingge.springboot.entity.Role;
 import com.qingge.springboot.entity.User;
 import com.qingge.springboot.exception.ServiceException;
 import com.qingge.springboot.mapper.RoleMapper;
@@ -174,7 +175,9 @@ public class UserController {
         Page<User> page = userService.page(new Page<>(pageNum, pageSize), queryWrapper);
         List<User> records = page.getRecords();
         records.stream().forEach(i->{
-            i.setRole(roleMapper.selectById(i.getRoleId()).getFlag());
+            Role role = roleMapper.selectById(i.getRoleId());
+            i.setRole(role.getFlag());
+            i.setRoleName(role.getName());
         });
         return Result.success(page);
     }

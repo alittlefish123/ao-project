@@ -69,6 +69,8 @@ public class User implements Serializable {
     private Integer roleId;
     @TableField(exist = false)
     private String role;
+    @TableField(exist = false)
+    private String roleName;
     private String sex;
     private String birth;
 

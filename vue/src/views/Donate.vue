@@ -67,8 +67,17 @@
     <el-dialog title="信息" :visible.sync="dialogFormVisible" width="30%" :close-on-click-modal="false">
       <el-form label-width="100px" size="small" style="width: 90%">
         <el-form-item label="捐款人">
-          <el-input v-model="form.name" autocomplete="off"></el-input>
+<!--          <el-input v-model="form.name" autocomplete="off"></el-input>-->
+          <el-select v-model="form.userId" placeholder="请选择捐赠人">
+            <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+            </el-option>
+          </el-select>
         </el-form-item>
+
         <el-form-item label="捐赠物资">
           <el-input v-model="form.goods" autocomplete="off"></el-input>
         </el-form-item>
@@ -93,6 +102,7 @@ export default {
   name: "Donate",
   data() {
     return {
+      options: [],
       tableData: [],
       total: 0,
       pageNum: 1,
@@ -109,6 +119,9 @@ export default {
   },
   methods: {
     load() {
+      this.request.get("/user").then(res=>{
+        this.options = res.data.map(user => ({ value: user.id, label: user.username }))
+      })
       this.request.get("/donate/page", {
         params: {
           pageNum: this.pageNum,

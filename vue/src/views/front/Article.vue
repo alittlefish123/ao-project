@@ -124,7 +124,9 @@ export default {
       user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {},
       vis: false,
       content: '',
-      comment: {},
+      comment: {
+          userId:JSON.parse(localStorage.getItem("user")).id
+      },
       commentVis: false,
       comments: []
     }
@@ -173,6 +175,9 @@ export default {
       })
     },
     loadComment(id) {
+      if(id==null || id==undefined){
+        id='0'
+      }
       this.request.get("/comment/article/2/" + id).then(res => {
         this.comments = res.data
       })
