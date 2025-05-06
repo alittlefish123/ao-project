@@ -79,8 +79,18 @@
             <el-button size="small" type="primary">点击上传</el-button>
           </el-upload>
         </el-form-item>
+<!--        <el-form-item label="联系人">-->
+<!--          <el-input v-model="form.person" autocomplete="off"></el-input>-->
+<!--        </el-form-item>-->
         <el-form-item label="联系人">
-          <el-input v-model="form.person" autocomplete="off"></el-input>
+          <el-select v-model="form.personId" placeholder="请选择捐赠人">
+            <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+            </el-option>
+          </el-select>
         </el-form-item>
         <el-form-item label="联系方式">
           <el-input v-model="form.phone" autocomplete="off"></el-input>
@@ -103,6 +113,7 @@ export default {
   name: "Rescue",
   data() {
     return {
+      options: [],  // 联系人
       tableData: [],
       total: 0,
       pageNum: 1,
@@ -119,6 +130,9 @@ export default {
   },
   methods: {
     load() {
+      this.request.get("/user").then(res=>{
+        this.options = res.data.map(user => ({ value: user.id, label: user.username }))
+      })
       this.request.get("/rescue/page", {
         params: {
           pageNum: this.pageNum,
