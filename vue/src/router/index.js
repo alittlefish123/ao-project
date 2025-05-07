@@ -5,10 +5,10 @@ import store from "@/store";
 Vue.use(VueRouter)
 
 const routes = [
-  {
-    path:'/',
-    redirect:'/login'
-  },
+  // {  // 这里不能添加这个
+  //   path:'/',
+  //   redirect:'/login'
+  // },
   {
     path: '/login',
     name: 'Login',
