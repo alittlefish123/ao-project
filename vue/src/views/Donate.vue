@@ -31,7 +31,7 @@
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column prop="id" label="ID" width="80" sortable></el-table-column>
       <el-table-column prop="name" label="捐款人"></el-table-column>
-      <el-table-column prop="goods" label="捐赠物资"></el-table-column>
+<!--      <el-table-column prop="goods" label="捐赠物资"></el-table-column>-->
       <el-table-column prop="time" label="捐款时间"></el-table-column>
       <el-table-column prop="money" label="估价"></el-table-column>
 
@@ -78,9 +78,9 @@
           </el-select>
         </el-form-item>
 
-        <el-form-item label="捐赠物资">
-          <el-input v-model="form.goods" autocomplete="off"></el-input>
-        </el-form-item>
+<!--        <el-form-item label="捐赠物资">-->
+<!--          <el-input v-model="form.goods" autocomplete="off"></el-input>-->
+<!--        </el-form-item>-->
         <el-form-item label="捐款事件">
           <el-date-picker v-model="form.time" type="datetime" value-format="yyyy-MM-dd HH:mm:ss" placeholder="选择日期时间"></el-date-picker>
         </el-form-item>

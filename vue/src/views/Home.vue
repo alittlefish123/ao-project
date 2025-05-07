@@ -59,7 +59,7 @@ export default {
 
     var option = {
       title: {
-        text: '各季度系统注册人数统计',
+        text: '各年系统注册人数统计',
         subtext: '趋势图',
         left: 'center'
       },tooltip: {
@@ -105,7 +105,7 @@ export default {
     //统计个年份的捐款的柱状图
     var donateOption = {
       title: {
-        text: '各季度系统募捐统计',
+        text: '各年系统募捐统计',
         subtext: '趋势图',
         left: 'center'
       },
@@ -151,7 +151,7 @@ export default {
     //各季度注册人数的饼图
     var pieOption = {
       title: {
-        text: '各季度系统注册人数统计',
+        text: '各年系统注册人数统计',
         subtext: '比例图',
         left: 'center'
       },
@@ -201,7 +201,7 @@ export default {
     // 捐赠同级饼图
     var donatePieOption = {
       title: {
-        text: '各季度系统捐赠统计',
+        text: '各年系统捐赠统计',
         subtext: '比例图',
         left: 'center'
       },
@@ -258,7 +258,7 @@ export default {
 
     var rescueAnimalCountOption = {
       title: {
-        text: '各季度救助动物数量统计',
+        text: '各年救助动物数量统计',
         subtext: '比例图2',
         left: 'center'
       },
@@ -318,7 +318,7 @@ export default {
     // 救助动物的线型图
     var rescueLineOption = {
       title: {
-        text: '各季度系统救助动物统计',
+        text: '各年系统救助动物统计',
         subtext: '趋势图',
         left: 'center'
       },tooltip: {

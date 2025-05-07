@@ -166,7 +166,7 @@ export default {
   name: "Task",
   data() {
     return {
-      // 普通自愿者  下拉框选项
+      // 普通志愿者  下拉框选项
       options: [{
         value: '0',
         label: '未完成'
@@ -249,7 +249,8 @@ export default {
 
     //增加任务
     async addTask(){
-      this.request.post('/task/add',this.form).then(success=>{
+      this.request.post('/task/add', {...this.form,nameId:this.form.name}
+      ).then(success=>{
 
         this.$message.success("添加任务成功")
       },err=>{

@@ -46,7 +46,7 @@
               <el-dropdown-item style="font-size: 14px; padding: 5px 0" >
                 <el-button type="primary" v-if="user.role==='ROLE_USER'" @click="apply">申请成为志愿者</el-button>
                 <el-button type="info" v-if="user.role==='ROLE_TEMP'" @click="update">申请待批准请稍后</el-button>
-                <el-button type="success" v-if="user.role==='ROLE_VOLUNTEER'" @click="update">我是光荣的自愿者</el-button>
+                <el-button type="success" v-if="user.role==='ROLE_VOLUNTEER'" @click="update">我是光荣的志愿者</el-button>
               </el-dropdown-item>
               <el-dropdown-item style="font-size: 14px; padding: 5px 0">
                 <router-link to="/front/password">修改密码</router-link>

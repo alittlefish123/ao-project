@@ -83,7 +83,7 @@
 <!--          <el-input v-model="form.person" autocomplete="off"></el-input>-->
 <!--        </el-form-item>-->
         <el-form-item label="联系人">
-          <el-select v-model="form.personId" placeholder="请选择捐赠人">
+          <el-select v-model="form.personId" placeholder="请选择救助站人员">
             <el-option
                 v-for="item in options"
                 :key="item.value"
